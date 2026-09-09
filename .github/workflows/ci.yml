@@ -12,7 +12,7 @@ env:
 
 jobs:
   build:
-    name: CH582M EVT board only / compile and link
+    name: CH582M and CH585M EVT boards only / compile and link
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -33,19 +33,45 @@ jobs:
         run: cargo build --locked --release -p ch582-uart-echo
       - name: Build USB HID example (EVT board only)
         run: cargo build --locked --release -p ch582-usb-hid
-      - name: Build RMK USB example (EVT board only)
-        run: cargo build --locked --release -p rmk-ch58x
+      - name: Build RMK USB example for CH585M (EVT board only)
+        run: |
+          cargo build --locked --release -p rmk-ch58x --no-default-features --features ch585
+          file target/riscv32imc-unknown-none-elf/release/rmk-ch58x | grep -E 'ELF 32-bit.*RISC-V'
+      - name: Build RMK USB example for CH582M (EVT board only)
+        run: |
+          cargo build --locked --release -p rmk-ch58x --no-default-features --features ch582
+          file target/riscv32imc-unknown-none-elf/release/rmk-ch58x | grep -E 'ELF 32-bit.*RISC-V'
       - name: Verify RMK feature boundary
         run: |
           grep -F 'default-features = false, features = ["async_matrix"]' \
             examples/rmk-ch58x/Cargo.toml
+          grep -F 'default = ["ch585"]' examples/rmk-ch58x/Cargo.toml
+          grep -F 'ch582 = ["embassy-ch58x/ch582", "qingke-rt/v4"]' \
+            examples/rmk-ch58x/Cargo.toml
+          if cargo check --locked -p rmk-ch58x --no-default-features \
+            --features ch582,ch585 2>chip-feature-error.log; then
+            echo "both chip features unexpectedly compiled"
+            exit 1
+          fi
+          grep -F 'requires exactly one chip feature: ch582 or ch585' \
+            chip-feature-error.log
+          cargo tree --locked -p rmk-ch58x --no-default-features \
+            --features ch582 --prefix none --format '{p}' | sort -u \
+            > rmk-ch58x-dependencies.txt
+          if grep -E '^(bt-hci|trouble-host|ch58x-ble|tinyble)( |$)' \
+            rmk-ch58x-dependencies.txt; then
+            echo "RMK USB example unexpectedly enables a wireless dependency"
+            exit 1
+          fi
       - name: Verify RISC-V ELF outputs
         run: |
-          for package in ch582-blinky ch582-embassy-blinky ch582-uart-echo ch582-usb-hid rmk-ch58x; do
+          for package in ch582-blinky ch582-embassy-blinky ch582-uart-echo ch582-usb-hid; do
             file "target/riscv32imc-unknown-none-elf/release/$package" | grep -E 'ELF 32-bit.*RISC-V'
           done
       - name: Lint examples independently
         run: |
-          for package in ch582-blinky ch582-embassy-blinky ch582-uart-echo ch582-usb-hid rmk-ch58x; do
+          for package in ch582-blinky ch582-embassy-blinky ch582-uart-echo ch582-usb-hid; do
             cargo clippy --locked --release -p "$package" -- -D warnings
           done
+          cargo clippy --locked --release -p rmk-ch58x --no-default-features --features ch585 -- -D warnings
+          cargo clippy --locked --release -p rmk-ch58x --no-default-features --features ch582 -- -D warnings

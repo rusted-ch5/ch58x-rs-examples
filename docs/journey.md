@@ -4,9 +4,11 @@ This log records completed, reproducible examples. Every milestone states the
 exact validation performed so a successful build is not confused with a
 physical-device result.
 
-All current board-level milestones use the CH582M EVT pin mapping and are
-therefore marked `EVT board only`. Hosted validation compiles and links each
-firmware image; any physical observation must be recorded separately.
+All current board-level milestones use EVT pin mappings and are therefore
+marked `EVT board only`. Milestones 1 through 4 target CH582M; the RMK USB
+milestone selects CH585M or CH582M explicitly. Hosted validation compiles and
+links each firmware image; any physical observation must be recorded
+separately.
 
 ## 1. Minimal CH582 runtime and GPIO — EVT board only
 
@@ -45,14 +47,15 @@ Validation: release ELF build and linker completion for
 `riscv32imc-unknown-none-elf`. Enumeration and HID traffic on a physical board
 are not claimed here.
 
-## 5. RMK USB keyboard — EVT board only
+## 5. RMK USB keyboard — CH585M/CH582M EVT boards only
 
 `examples/rmk-ch58x` connects the CH58x Embassy USB driver to RMK 0.9 at pinned
 revision `34d1a5eedf8afd17128cf25ed839adab6475d404`. It uses a one-key PA9-to-PA8
 matrix, RMK's interrupt-backed `async_matrix`, keyboard processing, and USB
-transport. RMK default features are disabled; no storage or configurator
-service is included.
+transport. Its mutually exclusive `ch585` (default) and `ch582` features select
+the QingKe startup path and linker memory layout. RMK default features are
+disabled; no storage or configurator service is included.
 
-Validation: release ELF build and linker completion for
-`riscv32imc-unknown-none-elf`. USB enumeration, matrix electrical behavior, and
-host key reports on a physical board are not claimed here.
+Validation: separate release ELF builds and linker completion for both chip
+features on `riscv32imc-unknown-none-elf`. USB enumeration, matrix electrical
+behavior, and host key reports on physical boards are not claimed here.

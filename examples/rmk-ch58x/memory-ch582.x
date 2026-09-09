@@ -1,5 +1,6 @@
 MEMORY
 {
+  /* CH582M EVT: keep the established 448-KiB Code Flash and 32-KiB SRAM limits. */
   FLASH (rx)  : ORIGIN = 0x00000000, LENGTH = 448K
   RAM   (rwx) : ORIGIN = 0x20000000, LENGTH = 32K
 }

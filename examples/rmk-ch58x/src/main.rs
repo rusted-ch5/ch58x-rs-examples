@@ -1,6 +1,11 @@
 #![no_std]
 #![no_main]
 
+#[cfg(all(feature = "ch582", feature = "ch585"))]
+compile_error!("rmk-ch58x chip features ch582 and ch585 are mutually exclusive");
+#[cfg(not(any(feature = "ch582", feature = "ch585")))]
+compile_error!("rmk-ch58x requires exactly one chip feature: ch582 or ch585");
+
 use embassy_ch58x::gpio::{Drive, Input, Level, Output, Pins, Pull};
 use rmk::config::{BehaviorConfig, DeviceConfig, PositionalConfig};
 use rmk::debounce::default_debouncer::DefaultDebouncer;
@@ -18,6 +23,10 @@ embassy_ch58x::bind_interrupts!(struct Irqs {
 const ROWS: usize = 1;
 const COLS: usize = 1;
 const LAYERS: usize = 1;
+#[cfg(feature = "ch582")]
+const PRODUCT_NAME: &str = "RMK CH582M EVT USB";
+#[cfg(feature = "ch585")]
+const PRODUCT_NAME: &str = "RMK CH585M EVT USB";
 const DEFAULT_KEYMAP: [[[KeyAction; COLS]; ROWS]; LAYERS] =
     [[[KeyAction::Single(Action::Key(KeyCode::Hid(HidKeyCode::A)))]]];
 
@@ -36,7 +45,7 @@ async fn main(_spawner: embassy_executor::Spawner) -> ! {
     let peripherals = embassy_ch58x::init(embassy_ch58x::hal::sysctl::Config::default());
     let pins = Pins::new(peripherals.GPIOA, peripherals.GPIOB);
 
-    // CH582M EVT board only: connect one switch between PA9 and PA8.
+    // CH582M/CH585M EVT boards only: connect one switch between PA9 and PA8.
     let rows = [Input::new(pins.pa8, Pull::Down)];
     let columns = [Output::new(pins.pa9, Level::Low, Drive::MilliAmps5)];
     let mut matrix =
@@ -54,7 +63,7 @@ async fn main(_spawner: embassy_executor::Spawner) -> ! {
         vid: 0xc0de,
         pid: 0xcafe,
         manufacturer: "rusted-ch5",
-        product_name: "RMK CH582M EVT USB",
+        product_name: PRODUCT_NAME,
         serial_number: "EXAMPLE",
     };
     let mut usb_transport = UsbTransport::new(driver, device_config);
