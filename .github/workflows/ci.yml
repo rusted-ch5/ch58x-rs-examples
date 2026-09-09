@@ -53,7 +53,7 @@ jobs:
             echo "both chip features unexpectedly compiled"
             exit 1
           fi
-          grep -F 'requires exactly one chip feature: ch582 or ch585' \
+          grep -E '(requires exactly one chip feature: ch582 or ch585|chip features ch582 and ch585 are mutually exclusive)' \
             chip-feature-error.log
           cargo tree --locked -p rmk-ch58x --no-default-features \
             --features ch582 --prefix none --format '{p}' | sort -u \
