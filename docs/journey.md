@@ -20,3 +20,12 @@ PFIC event latch; GPIO writes remain short synchronous register operations.
 
 Validation: release ELF build and linker completion for
 `riscv32imc-unknown-none-elf`. No board observation is claimed here.
+
+## 3. Interrupt-driven UART
+
+`examples/ch582-uart-echo` binds UART1 to an Embassy handler and echoes input
+from PA8 back through PA9. Receive, transmit backpressure, and final flush all
+yield to IRQ or timer futures; the async task contains no FIFO polling loop.
+
+Validation: release ELF build and linker completion for
+`riscv32imc-unknown-none-elf`. No UART traffic observation is claimed here.

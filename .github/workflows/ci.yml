@@ -23,3 +23,5 @@ jobs:
         run: cargo build --release -p ch582-blinky
       - name: Build Embassy example
         run: cargo build --release -p ch582-embassy-blinky
+      - name: Build async UART example
+        run: cargo build --release -p ch582-uart-echo

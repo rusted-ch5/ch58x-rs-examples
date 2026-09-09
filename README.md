@@ -18,6 +18,7 @@ behavior is recorded separately when it has been observed on hardware.
   delay on PA8.
 - `examples/ch582-embassy-blinky`: event-sleep executor and asynchronous
   SysTick delays driving PA8.
+- `examples/ch582-uart-echo`: interrupt-driven UART1 echo on PA9 TX and PA8 RX.
 
 Build an example by package name, for example:
 

@@ -1,5 +1,9 @@
 [workspace]
-members = ["examples/ch582-blinky", "examples/ch582-embassy-blinky"]
+members = [
+    "examples/ch582-blinky",
+    "examples/ch582-embassy-blinky",
+    "examples/ch582-uart-echo",
+]
 resolver = "2"
 
 [workspace.package]
