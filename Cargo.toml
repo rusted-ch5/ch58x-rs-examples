@@ -1,0 +1,14 @@
+[workspace]
+members = ["examples/ch582-blinky"]
+resolver = "2"
+
+[workspace.package]
+edition = "2024"
+rust-version = "1.87"
+license = "MIT OR Apache-2.0"
+
+[profile.release]
+codegen-units = 1
+lto = "fat"
+opt-level = "s"
+
