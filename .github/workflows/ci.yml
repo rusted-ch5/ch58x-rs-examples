@@ -35,19 +35,22 @@ jobs:
         run: cargo build --locked --release -p ch582-usb-hid
       - name: Build RMK USB example for CH585M (EVT board only)
         run: |
-          cargo build --locked --release -p rmk-ch58x --no-default-features --features ch585
+          cargo build --locked --release -p rmk-ch58x
           file target/riscv32imc-unknown-none-elf/release/rmk-ch58x | grep -E 'ELF 32-bit.*RISC-V'
       - name: Build RMK USB example for CH582M (EVT board only)
         run: |
-          cargo build --locked --release -p rmk-ch58x --no-default-features --features ch582
+          cargo build --locked --release -p rmk-ch58x --no-default-features --features ch582,storage,vial
           file target/riscv32imc-unknown-none-elf/release/rmk-ch58x | grep -E 'ELF 32-bit.*RISC-V'
       - name: Verify RMK feature boundary
         run: |
           grep -F 'default-features = false, features = ["async_matrix"]' \
             examples/rmk-ch58x/Cargo.toml
-          grep -F 'default = ["ch585"]' examples/rmk-ch58x/Cargo.toml
+          grep -F 'default = ["ch585", "storage", "vial"]' \
+            examples/rmk-ch58x/Cargo.toml
           grep -F 'ch582 = ["embassy-ch58x/ch582", "qingke-rt/v4"]' \
             examples/rmk-ch58x/Cargo.toml
+          grep -F 'storage = ["rmk/storage"]' examples/rmk-ch58x/Cargo.toml
+          grep -F 'vial = ["storage", "rmk/vial"]' examples/rmk-ch58x/Cargo.toml
           if cargo check --locked -p rmk-ch58x --no-default-features \
             --features ch582,ch585 2>chip-feature-error.log; then
             echo "both chip features unexpectedly compiled"
@@ -56,13 +59,21 @@ jobs:
           grep -E '(requires exactly one chip feature: ch582 or ch585|chip features ch582 and ch585 are mutually exclusive)' \
             chip-feature-error.log
           cargo tree --locked -p rmk-ch58x --no-default-features \
-            --features ch582 --prefix none --format '{p}' | sort -u \
+            --features ch582,storage,vial --prefix none --format '{p}' | sort -u \
             > rmk-ch58x-dependencies.txt
           if grep -E '^(bt-hci|trouble-host|ch58x-ble|tinyble)( |$)' \
             rmk-ch58x-dependencies.txt; then
             echo "RMK USB example unexpectedly enables a wireless dependency"
             exit 1
           fi
+      - name: Check RMK optional feature profiles
+        run: |
+          for chip in ch585 ch582; do
+            cargo check --locked --release -p rmk-ch58x \
+              --no-default-features --features "$chip"
+            cargo check --locked --release -p rmk-ch58x \
+              --no-default-features --features "$chip,storage"
+          done
       - name: Verify RISC-V ELF outputs
         run: |
           for package in ch582-blinky ch582-embassy-blinky ch582-uart-echo ch582-usb-hid; do
@@ -73,5 +84,5 @@ jobs:
           for package in ch582-blinky ch582-embassy-blinky ch582-uart-echo ch582-usb-hid; do
             cargo clippy --locked --release -p "$package" -- -D warnings
           done
-          cargo clippy --locked --release -p rmk-ch58x --no-default-features --features ch585 -- -D warnings
-          cargo clippy --locked --release -p rmk-ch58x --no-default-features --features ch582 -- -D warnings
+          cargo clippy --locked --release -p rmk-ch58x --no-default-features --features ch585,storage,vial -- -D warnings
+          cargo clippy --locked --release -p rmk-ch58x --no-default-features --features ch582,storage,vial -- -D warnings

@@ -6,12 +6,19 @@ rust-version.workspace = true
 license.workspace = true
 
 [features]
-default = ["ch585"]
+default = ["ch585", "storage", "vial"]
 ch582 = ["embassy-ch58x/ch582", "qingke-rt/v4"]
 ch585 = ["embassy-ch58x/ch585", "qingke-rt/ch585-v3c"]
+storage = ["rmk/storage"]
+vial = ["storage", "rmk/vial"]
 
 [dependencies]
 embassy-ch58x = { workspace = true, features = ["gpio", "usb"] }
 embassy-executor = "0.9"
 qingke-rt = { git = "https://github.com/rusted-ch5/qingke-rs.git", rev = "b107f8b4cce3495ff807738cdbb34f25819ca680", default-features = false, features = ["highcode"] }
 rmk = { git = "https://github.com/rmk-rs/rmk.git", rev = "34d1a5eedf8afd17128cf25ed839adab6475d404", version = "=0.9.0", default-features = false, features = ["async_matrix"] }
+
+[build-dependencies]
+const-gen = "1.6"
+json = "0.12"
+xz2 = "0.1"

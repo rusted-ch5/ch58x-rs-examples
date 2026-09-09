@@ -28,9 +28,9 @@ behavior on physical hardware.
 - `examples/ch582-uart-echo`: interrupt-driven UART1 echo on PA9 TX and PA8 RX.
 - `examples/ch582-usb-hid`: minimal event-driven USBFS boot-keyboard device.
 - `examples/rmk-ch58x`: RMK 0.9 USB keyboard for CH585M EVT (default) or CH582M
-  EVT, with a one-key interrupt-driven matrix on PA9/PA8. The RMK dependency
-  disables its default features and enables only `async_matrix`; USB is RMK's
-  core transport path.
+  EVT, with a one-key interrupt-driven matrix on PA9/PA8. Its default profile
+  enables persistent keymap storage in the final 8 KiB DataFlash window and a
+  one-key Vial definition over USB.
 
 Build an example by package name, for example:
 
@@ -41,9 +41,13 @@ cargo build --release -p ch582-embassy-blinky
 Build the RMK USB example for an explicit chip:
 
 ```sh
-cargo build --release -p rmk-ch58x --no-default-features --features ch585
-cargo build --release -p rmk-ch58x --no-default-features --features ch582
+cargo build --release -p rmk-ch58x --no-default-features --features ch585,storage,vial
+cargo build --release -p rmk-ch58x --no-default-features --features ch582,storage,vial
 ```
+
+An ordinary `cargo build --release -p rmk-ch58x` selects CH585M together with
+storage and Vial. The explicit CH582M command above enables the same default
+capabilities while changing only the chip selection.
 
 The USB examples use conspicuous development-only VID/PID placeholders.
 Replace them with identifiers assigned to your product before distributing

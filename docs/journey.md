@@ -53,9 +53,11 @@ are not claimed here.
 revision `34d1a5eedf8afd17128cf25ed839adab6475d404`. It uses a one-key PA9-to-PA8
 matrix, RMK's interrupt-backed `async_matrix`, keyboard processing, and USB
 transport. Its mutually exclusive `ch585` (default) and `ch582` features select
-the QingKe startup path and linker memory layout. RMK default features are
-disabled; no storage or configurator service is included.
+the QingKe startup path and linker memory layout. The package defaults also
+enable RMK storage and Vial: the keymap is restored from the final 8 KiB
+DataFlash window, and the one-key Vial definition is served through USB.
 
 Validation: separate release ELF builds and linker completion for both chip
-features on `riscv32imc-unknown-none-elf`. USB enumeration, matrix electrical
+features with storage and Vial on `riscv32imc-unknown-none-elf`. USB
+enumeration, Vial host exchange, DataFlash persistence, matrix electrical
 behavior, and host key reports on physical boards are not claimed here.
