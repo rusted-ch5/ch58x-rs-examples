@@ -47,7 +47,7 @@ jobs:
             examples/rmk-ch58x/Cargo.toml
           grep -F 'default = ["ch585", "storage", "vial"]' \
             examples/rmk-ch58x/Cargo.toml
-          grep -F 'ch582 = ["embassy-ch58x/ch582", "qingke-rt/v4"]' \
+          grep -F 'ch582 = ["embassy-ch58x-rs/ch582", "qingke-rs/v4"]' \
             examples/rmk-ch58x/Cargo.toml
           grep -F 'storage = ["rmk/storage"]' examples/rmk-ch58x/Cargo.toml
           grep -F 'vial = ["storage", "rmk/vial"]' examples/rmk-ch58x/Cargo.toml

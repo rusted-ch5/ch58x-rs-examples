@@ -7,9 +7,9 @@ rust-version.workspace = true
 license.workspace = true
 
 [dependencies]
-embassy-ch58x = { workspace = true, features = ["ch582", "usb"] }
+embassy-ch58x-rs = { workspace = true, features = ["ch582", "usb"] }
 embassy-executor = "0.9"
 embassy-futures = "0.1"
 embassy-time = { version = "0.5", features = ["tick-hz-1_000_000"] }
 embassy-usb = "0.6"
-qingke-rt = { git = "https://github.com/rusted-ch5/qingke-rs.git", rev = "b107f8b4cce3495ff807738cdbb34f25819ca680", default-features = false, features = ["v4", "highcode"] }
+qingke-rs = { version = "=0.6.1-rusted.1", git = "https://github.com/rusted-ch5/qingke-rs.git", rev = "9f2eed7594eb6ea8cd4ae9504e4023698ce05fcd", default-features = false, features = ["v4", "highcode"] }

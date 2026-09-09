@@ -138,42 +138,42 @@ checksum = "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801"
 name = "ch582-blinky"
 version = "0.1.0"
 dependencies = [
- "ch58x-hal",
+ "ch58x-hal-rs",
  "embedded-hal 1.0.0",
  "qingke",
- "qingke-rt",
+ "qingke-rs",
 ]
 
 [[package]]
 name = "ch582-embassy-blinky"
 version = "0.1.0"
 dependencies = [
- "embassy-ch58x",
+ "embassy-ch58x-rs",
  "embassy-executor",
  "embassy-time",
  "embedded-hal 1.0.0",
- "qingke-rt",
+ "qingke-rs",
 ]
 
 [[package]]
 name = "ch582-uart-echo"
 version = "0.1.0"
 dependencies = [
- "embassy-ch58x",
+ "embassy-ch58x-rs",
  "embassy-executor",
- "qingke-rt",
+ "qingke-rs",
 ]
 
 [[package]]
 name = "ch582-usb-hid"
 version = "0.1.0"
 dependencies = [
- "embassy-ch58x",
+ "embassy-ch58x-rs",
  "embassy-executor",
  "embassy-futures",
  "embassy-time",
  "embassy-usb",
- "qingke-rt",
+ "qingke-rs",
 ]
 
 [[package]]
@@ -187,9 +187,9 @@ dependencies = [
 ]
 
 [[package]]
-name = "ch58x-hal"
+name = "ch58x-hal-rs"
 version = "0.1.0-alpha.1"
-source = "git+https://github.com/rusted-ch5/ch58x-hal.git?rev=3558211a098f7bf669e69a1d68f6150ab5893019#3558211a098f7bf669e69a1d68f6150ab5893019"
+source = "git+https://github.com/rusted-ch5/ch58x-hal.git?rev=051d966243e3bfa6a62529e9039ea979fec78d3a#051d966243e3bfa6a62529e9039ea979fec78d3a"
 dependencies = [
  "ch58x",
  "critical-section",
@@ -419,11 +419,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "embassy-ch58x"
+name = "embassy-ch58x-rs"
 version = "0.1.0-alpha.1"
-source = "git+https://github.com/rusted-ch5/embassy-ch58x.git?rev=0e7a7c75bf6871a9b40c08119c7dff713cfd7770#0e7a7c75bf6871a9b40c08119c7dff713cfd7770"
+source = "git+https://github.com/rusted-ch5/embassy-ch58x.git?rev=e4b64fde2f3d2e1c0d566d56b3558d8cb605dbab#e4b64fde2f3d2e1c0d566d56b3558d8cb605dbab"
 dependencies = [
- "ch58x-hal",
+ "ch58x-hal-rs",
  "critical-section",
  "embassy-executor",
  "embassy-sync",
@@ -437,7 +437,7 @@ dependencies = [
  "embedded-io-async 0.6.1",
  "portable-atomic",
  "qingke",
- "qingke-rt",
+ "qingke-rs",
 ]
 
 [[package]]
@@ -1204,23 +1204,23 @@ dependencies = [
 ]
 
 [[package]]
-name = "qingke-rt"
-version = "0.6.1"
-source = "git+https://github.com/rusted-ch5/qingke-rs.git?rev=b107f8b4cce3495ff807738cdbb34f25819ca680#b107f8b4cce3495ff807738cdbb34f25819ca680"
-dependencies = [
- "qingke",
- "qingke-rt-macros",
-]
-
-[[package]]
-name = "qingke-rt-macros"
-version = "0.6.1"
-source = "git+https://github.com/rusted-ch5/qingke-rs.git?rev=b107f8b4cce3495ff807738cdbb34f25819ca680#b107f8b4cce3495ff807738cdbb34f25819ca680"
+name = "qingke-macros-rs"
+version = "0.6.1-rusted.1"
+source = "git+https://github.com/rusted-ch5/qingke-rs.git?rev=9f2eed7594eb6ea8cd4ae9504e4023698ce05fcd#9f2eed7594eb6ea8cd4ae9504e4023698ce05fcd"
 dependencies = [
  "proc-macro-error",
  "proc-macro2",
  "quote",
  "syn 1.0.109",
+]
+
+[[package]]
+name = "qingke-rs"
+version = "0.6.1-rusted.1"
+source = "git+https://github.com/rusted-ch5/qingke-rs.git?rev=9f2eed7594eb6ea8cd4ae9504e4023698ce05fcd#9f2eed7594eb6ea8cd4ae9504e4023698ce05fcd"
+dependencies = [
+ "qingke",
+ "qingke-macros-rs",
 ]
 
 [[package]]
@@ -1309,10 +1309,10 @@ name = "rmk-ch58x"
 version = "0.1.0"
 dependencies = [
  "const-gen",
- "embassy-ch58x",
+ "embassy-ch58x-rs",
  "embassy-executor",
  "json",
- "qingke-rt",
+ "qingke-rs",
  "rmk",
  "xz2",
 ]
