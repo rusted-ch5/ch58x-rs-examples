@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: "1.87"
+          toolchain: "1.92"
           targets: riscv32imc-unknown-none-elf
           components: rustfmt, clippy
       - name: Check formatting
@@ -33,13 +33,19 @@ jobs:
         run: cargo build --locked --release -p ch582-uart-echo
       - name: Build USB HID example (EVT board only)
         run: cargo build --locked --release -p ch582-usb-hid
+      - name: Build RMK USB example (EVT board only)
+        run: cargo build --locked --release -p rmk-ch58x
+      - name: Verify RMK feature boundary
+        run: |
+          grep -F 'default-features = false, features = ["async_matrix"]' \
+            examples/rmk-ch58x/Cargo.toml
       - name: Verify RISC-V ELF outputs
         run: |
-          for package in ch582-blinky ch582-embassy-blinky ch582-uart-echo ch582-usb-hid; do
+          for package in ch582-blinky ch582-embassy-blinky ch582-uart-echo ch582-usb-hid rmk-ch58x; do
             file "target/riscv32imc-unknown-none-elf/release/$package" | grep -E 'ELF 32-bit.*RISC-V'
           done
       - name: Lint examples independently
         run: |
-          for package in ch582-blinky ch582-embassy-blinky ch582-uart-echo ch582-usb-hid; do
+          for package in ch582-blinky ch582-embassy-blinky ch582-uart-echo ch582-usb-hid rmk-ch58x; do
             cargo clippy --locked --release -p "$package" -- -D warnings
           done

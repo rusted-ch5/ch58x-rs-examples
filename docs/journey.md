@@ -44,3 +44,15 @@ does not generate key presses.
 Validation: release ELF build and linker completion for
 `riscv32imc-unknown-none-elf`. Enumeration and HID traffic on a physical board
 are not claimed here.
+
+## 5. RMK USB keyboard — EVT board only
+
+`examples/rmk-ch58x` connects the CH58x Embassy USB driver to RMK 0.9 at pinned
+revision `34d1a5eedf8afd17128cf25ed839adab6475d404`. It uses a one-key PA9-to-PA8
+matrix, RMK's interrupt-backed `async_matrix`, keyboard processing, and USB
+transport. RMK default features are disabled; no storage or configurator
+service is included.
+
+Validation: release ELF build and linker completion for
+`riscv32imc-unknown-none-elf`. USB enumeration, matrix electrical behavior, and
+host key reports on a physical board are not claimed here.

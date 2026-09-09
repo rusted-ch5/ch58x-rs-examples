@@ -16,7 +16,7 @@ not claim behavior on physical hardware.
 
 ## Toolchain
 
-- Rust 1.87 or newer;
+- Rust 1.92 or newer;
 - target `riscv32imc-unknown-none-elf`.
 
 ## Examples — CH582M EVT board only
@@ -27,6 +27,9 @@ not claim behavior on physical hardware.
   SysTick delays driving PA8.
 - `examples/ch582-uart-echo`: interrupt-driven UART1 echo on PA9 TX and PA8 RX.
 - `examples/ch582-usb-hid`: minimal event-driven USBFS boot-keyboard device.
+- `examples/rmk-ch58x`: RMK 0.9 USB keyboard with a one-key interrupt-driven
+  matrix on PA9/PA8. The RMK dependency disables its default features and
+  enables only `async_matrix`; USB is RMK's core transport path.
 
 Build an example by package name, for example:
 
@@ -34,8 +37,9 @@ Build an example by package name, for example:
 cargo build --release -p ch582-embassy-blinky
 ```
 
-The USB example uses conspicuous development-only VID/PID placeholders. Replace
-them with identifiers assigned to your product before distributing firmware.
+The USB examples use conspicuous development-only VID/PID placeholders.
+Replace them with identifiers assigned to your product before distributing
+firmware.
 
 The minimal HAL example uses the PAC-provided vector table, while Embassy owns
 its vector table. Build them in separate Cargo invocations so those mutually

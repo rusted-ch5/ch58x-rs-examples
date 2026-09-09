@@ -4,12 +4,13 @@ members = [
     "examples/ch582-embassy-blinky",
     "examples/ch582-uart-echo",
     "examples/ch582-usb-hid",
+    "examples/rmk-ch58x",
 ]
 resolver = "2"
 
 [workspace.package]
 edition = "2024"
-rust-version = "1.87"
+rust-version = "1.92"
 license = "MIT OR Apache-2.0"
 
 [workspace.dependencies]
