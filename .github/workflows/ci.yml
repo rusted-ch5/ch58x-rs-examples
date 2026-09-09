@@ -16,14 +16,19 @@ jobs:
         with:
           toolchain: "1.87"
           targets: riscv32imc-unknown-none-elf
-          components: rustfmt
+          components: rustfmt, clippy
       - name: Check formatting
         run: cargo fmt --all -- --check
       - name: Build minimal HAL example
-        run: cargo build --release -p ch582-blinky
+        run: cargo build --locked --release -p ch582-blinky
       - name: Build Embassy example
-        run: cargo build --release -p ch582-embassy-blinky
+        run: cargo build --locked --release -p ch582-embassy-blinky
       - name: Build async UART example
-        run: cargo build --release -p ch582-uart-echo
+        run: cargo build --locked --release -p ch582-uart-echo
       - name: Build USB HID example
-        run: cargo build --release -p ch582-usb-hid
+        run: cargo build --locked --release -p ch582-usb-hid
+      - name: Lint examples independently
+        run: |
+          for package in ch582-blinky ch582-embassy-blinky ch582-uart-echo ch582-usb-hid; do
+            cargo clippy --locked --release -p "$package" -- -D warnings
+          done

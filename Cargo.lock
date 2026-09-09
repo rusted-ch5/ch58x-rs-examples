@@ -60,7 +60,7 @@ dependencies = [
 name = "ch582-embassy-blinky"
 version = "0.1.0"
 dependencies = [
- "embassy-ch58x 0.1.0-alpha.1 (git+https://github.com/rusted-ch5/embassy-ch58x.git?rev=81c555cee477d853a98700c4d9956514eb7e20ec)",
+ "embassy-ch58x",
  "embassy-executor",
  "embassy-time",
  "embedded-hal 1.0.0",
@@ -71,7 +71,7 @@ dependencies = [
 name = "ch582-uart-echo"
 version = "0.1.0"
 dependencies = [
- "embassy-ch58x 0.1.0-alpha.1 (git+https://github.com/rusted-ch5/embassy-ch58x.git?rev=81c555cee477d853a98700c4d9956514eb7e20ec)",
+ "embassy-ch58x",
  "embassy-executor",
  "qingke-rt",
 ]
@@ -80,7 +80,7 @@ dependencies = [
 name = "ch582-usb-hid"
 version = "0.1.0"
 dependencies = [
- "embassy-ch58x 0.1.0-alpha.1 (git+https://github.com/rusted-ch5/embassy-ch58x.git?rev=89b936f0bd019de8ab4224caf9df2e703fc5c423)",
+ "embassy-ch58x",
  "embassy-executor",
  "embassy-futures",
  "embassy-time",
@@ -165,26 +165,7 @@ dependencies = [
 [[package]]
 name = "embassy-ch58x"
 version = "0.1.0-alpha.1"
-source = "git+https://github.com/rusted-ch5/embassy-ch58x.git?rev=81c555cee477d853a98700c4d9956514eb7e20ec#81c555cee477d853a98700c4d9956514eb7e20ec"
-dependencies = [
- "ch58x-hal",
- "critical-section",
- "embassy-executor",
- "embassy-sync",
- "embassy-time",
- "embassy-time-driver",
- "embassy-time-queue-utils",
- "embedded-io 0.6.1",
- "embedded-io-async 0.6.1",
- "portable-atomic",
- "qingke",
- "qingke-rt",
-]
-
-[[package]]
-name = "embassy-ch58x"
-version = "0.1.0-alpha.1"
-source = "git+https://github.com/rusted-ch5/embassy-ch58x.git?rev=89b936f0bd019de8ab4224caf9df2e703fc5c423#89b936f0bd019de8ab4224caf9df2e703fc5c423"
+source = "git+https://github.com/rusted-ch5/embassy-ch58x.git?rev=3548f3f6af9e475bf52af56ee2c262d21464bea5#3548f3f6af9e475bf52af56ee2c262d21464bea5"
 dependencies = [
  "ch58x-hal",
  "critical-section",
@@ -194,6 +175,8 @@ dependencies = [
  "embassy-time-driver",
  "embassy-time-queue-utils",
  "embassy-usb-driver",
+ "embedded-io 0.6.1",
+ "embedded-io-async 0.6.1",
  "portable-atomic",
  "qingke",
  "qingke-rt",

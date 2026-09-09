@@ -6,7 +6,7 @@ rust-version.workspace = true
 license.workspace = true
 
 [dependencies]
-embassy-ch58x = { git = "https://github.com/rusted-ch5/embassy-ch58x.git", rev = "89b936f0bd019de8ab4224caf9df2e703fc5c423", default-features = false, features = ["ch582", "usb"] }
+embassy-ch58x = { workspace = true, features = ["ch582", "usb"] }
 embassy-executor = "0.9"
 embassy-futures = "0.1"
 embassy-time = { version = "0.5", features = ["tick-hz-1_000_000"] }
