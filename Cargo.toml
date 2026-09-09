@@ -13,7 +13,7 @@ rust-version = "1.87"
 license = "MIT OR Apache-2.0"
 
 [workspace.dependencies]
-embassy-ch58x = { git = "https://github.com/rusted-ch5/embassy-ch58x.git", rev = "3548f3f6af9e475bf52af56ee2c262d21464bea5", default-features = false }
+embassy-ch58x = { git = "https://github.com/rusted-ch5/embassy-ch58x.git", rev = "33c320eb35760fea797870b48a13b4c75141a40f", default-features = false }
 
 [profile.release]
 codegen-units = 1

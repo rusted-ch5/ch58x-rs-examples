@@ -7,12 +7,19 @@ Each example is introduced as a tested milestone in [the development
 journey](docs/journey.md). Build success is a source/toolchain result; board
 behavior is recorded separately when it has been observed on hardware.
 
+## Board scope
+
+The current pin assignments and board-level examples target the CH582M EVT
+board only. Board-specific cases use an `*-evt-*` directory name and carry an
+`EVT board only` heading. Hosted Actions compile and link the firmware; they do
+not claim behavior on physical hardware.
+
 ## Toolchain
 
 - Rust 1.87 or newer;
 - target `riscv32imc-unknown-none-elf`.
 
-## Examples
+## Examples — CH582M EVT board only
 
 - `examples/ch582-blinky`: minimal runtime, clock, owned GPIO, and polled
   delay on PA8.

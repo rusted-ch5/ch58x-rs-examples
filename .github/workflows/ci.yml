@@ -7,8 +7,12 @@ on:
 permissions:
   contents: read
 
+env:
+  CARGO_INCREMENTAL: "0"
+
 jobs:
   build:
+    name: CH582M EVT board only / compile and link
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -19,14 +23,21 @@ jobs:
           components: rustfmt, clippy
       - name: Check formatting
         run: cargo fmt --all -- --check
-      - name: Build minimal HAL example
+      - name: Check package metadata
+        run: cargo metadata --locked --format-version 1 --no-deps
+      - name: Build minimal HAL example (EVT board only)
         run: cargo build --locked --release -p ch582-blinky
-      - name: Build Embassy example
+      - name: Build Embassy example (EVT board only)
         run: cargo build --locked --release -p ch582-embassy-blinky
-      - name: Build async UART example
+      - name: Build async UART example (EVT board only)
         run: cargo build --locked --release -p ch582-uart-echo
-      - name: Build USB HID example
+      - name: Build USB HID example (EVT board only)
         run: cargo build --locked --release -p ch582-usb-hid
+      - name: Verify RISC-V ELF outputs
+        run: |
+          for package in ch582-blinky ch582-embassy-blinky ch582-uart-echo ch582-usb-hid; do
+            file "target/riscv32imc-unknown-none-elf/release/$package" | grep -E 'ELF 32-bit.*RISC-V'
+          done
       - name: Lint examples independently
         run: |
           for package in ch582-blinky ch582-embassy-blinky ch582-uart-echo ch582-usb-hid; do

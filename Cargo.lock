@@ -101,7 +101,7 @@ dependencies = [
 [[package]]
 name = "ch58x-hal"
 version = "0.1.0-alpha.1"
-source = "git+https://github.com/rusted-ch5/ch58x-hal.git?rev=21400fecc7feb5cbd26b99a4367c10a91348712d#21400fecc7feb5cbd26b99a4367c10a91348712d"
+source = "git+https://github.com/rusted-ch5/ch58x-hal.git?rev=ab7025c11ae5757de6522af82cd9865c9f2b44e9#ab7025c11ae5757de6522af82cd9865c9f2b44e9"
 dependencies = [
  "ch58x",
  "critical-section",
@@ -165,7 +165,7 @@ dependencies = [
 [[package]]
 name = "embassy-ch58x"
 version = "0.1.0-alpha.1"
-source = "git+https://github.com/rusted-ch5/embassy-ch58x.git?rev=3548f3f6af9e475bf52af56ee2c262d21464bea5#3548f3f6af9e475bf52af56ee2c262d21464bea5"
+source = "git+https://github.com/rusted-ch5/embassy-ch58x.git?rev=33c320eb35760fea797870b48a13b4c75141a40f#33c320eb35760fea797870b48a13b4c75141a40f"
 dependencies = [
  "ch58x-hal",
  "critical-section",

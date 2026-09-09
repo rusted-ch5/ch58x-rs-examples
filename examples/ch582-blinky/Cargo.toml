@@ -6,7 +6,7 @@ rust-version.workspace = true
 license.workspace = true
 
 [dependencies]
-ch58x-hal = { git = "https://github.com/rusted-ch5/ch58x-hal.git", rev = "21400fecc7feb5cbd26b99a4367c10a91348712d", default-features = false, features = ["ch582", "rt"] }
+ch58x-hal = { git = "https://github.com/rusted-ch5/ch58x-hal.git", rev = "ab7025c11ae5757de6522af82cd9865c9f2b44e9", default-features = false, features = ["ch582", "rt"] }
 embedded-hal = "1.0"
 qingke = { version = "0.6.1", default-features = false, features = ["v4"] }
 qingke-rt = { git = "https://github.com/rusted-ch5/qingke-rs.git", rev = "b107f8b4cce3495ff807738cdbb34f25819ca680", default-features = false, features = ["v4", "highcode"] }
