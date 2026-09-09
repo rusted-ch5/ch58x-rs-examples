@@ -3,6 +3,7 @@ members = [
     "examples/ch582-blinky",
     "examples/ch582-embassy-blinky",
     "examples/ch582-uart-echo",
+    "examples/ch582-usb-hid",
 ]
 resolver = "2"
 

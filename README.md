@@ -19,12 +19,16 @@ behavior is recorded separately when it has been observed on hardware.
 - `examples/ch582-embassy-blinky`: event-sleep executor and asynchronous
   SysTick delays driving PA8.
 - `examples/ch582-uart-echo`: interrupt-driven UART1 echo on PA9 TX and PA8 RX.
+- `examples/ch582-usb-hid`: minimal event-driven USBFS boot-keyboard device.
 
 Build an example by package name, for example:
 
 ```sh
 cargo build --release -p ch582-embassy-blinky
 ```
+
+The USB example uses conspicuous development-only VID/PID placeholders. Replace
+them with identifiers assigned to your product before distributing firmware.
 
 The minimal HAL example uses the PAC-provided vector table, while Embassy owns
 its vector table. Build them in separate Cargo invocations so those mutually

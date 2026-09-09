@@ -29,3 +29,14 @@ yield to IRQ or timer futures; the async task contains no FIFO polling loop.
 
 Validation: release ELF build and linker completion for
 `riscv32imc-unknown-none-elf`. No UART traffic observation is claimed here.
+
+## 4. Event-driven USB HID
+
+`examples/ch582-usb-hid` builds a minimal boot-keyboard interface on USBFS. The
+device state machine and endpoint transfers wait on interrupts; the example
+sends an all-released report once per second using `embassy_time::Timer`, so it
+does not generate key presses.
+
+Validation: release ELF build and linker completion for
+`riscv32imc-unknown-none-elf`. Enumeration and HID traffic on a physical board
+are not claimed here.

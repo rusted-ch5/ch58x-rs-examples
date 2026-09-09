@@ -25,3 +25,5 @@ jobs:
         run: cargo build --release -p ch582-embassy-blinky
       - name: Build async UART example
         run: cargo build --release -p ch582-uart-echo
+      - name: Build USB HID example
+        run: cargo build --release -p ch582-usb-hid

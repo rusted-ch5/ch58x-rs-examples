@@ -1,0 +1,14 @@
+[package]
+name = "ch582-usb-hid"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+embassy-ch58x = { git = "https://github.com/rusted-ch5/embassy-ch58x.git", rev = "89b936f0bd019de8ab4224caf9df2e703fc5c423", default-features = false, features = ["ch582", "usb"] }
+embassy-executor = "0.9"
+embassy-futures = "0.1"
+embassy-time = { version = "0.5", features = ["tick-hz-1_000_000"] }
+embassy-usb = "0.6"
+qingke-rt = { git = "https://github.com/rusted-ch5/qingke-rs.git", rev = "b107f8b4cce3495ff807738cdbb34f25819ca680", default-features = false, features = ["v4", "highcode"] }
