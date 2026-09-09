@@ -11,3 +11,12 @@ runtime, CH582 clock setup, owned GPIO tokens, and a PA8 output loop.
 
 Validation: release ELF build and linker completion for
 `riscv32imc-unknown-none-elf`. No board observation is claimed here.
+
+## 2. Embassy executor and time driver
+
+`examples/ch582-embassy-blinky` replaces the polled delay with
+`embassy_time::Timer`. When no task is ready, the CH58x executor sleeps on the
+PFIC event latch; GPIO writes remain short synchronous register operations.
+
+Validation: release ELF build and linker completion for
+`riscv32imc-unknown-none-elf`. No board observation is claimed here.

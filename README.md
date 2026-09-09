@@ -16,6 +16,18 @@ behavior is recorded separately when it has been observed on hardware.
 
 - `examples/ch582-blinky`: minimal runtime, clock, owned GPIO, and polled
   delay on PA8.
+- `examples/ch582-embassy-blinky`: event-sleep executor and asynchronous
+  SysTick delays driving PA8.
+
+Build an example by package name, for example:
+
+```sh
+cargo build --release -p ch582-embassy-blinky
+```
+
+The minimal HAL example uses the PAC-provided vector table, while Embassy owns
+its vector table. Build them in separate Cargo invocations so those mutually
+exclusive linker features are not unified by `--workspace`.
 
 ## License
 

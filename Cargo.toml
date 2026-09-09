@@ -1,5 +1,5 @@
 [workspace]
-members = ["examples/ch582-blinky"]
+members = ["examples/ch582-blinky", "examples/ch582-embassy-blinky"]
 resolver = "2"
 
 [workspace.package]
@@ -11,4 +11,3 @@ license = "MIT OR Apache-2.0"
 codegen-units = 1
 lto = "fat"
 opt-level = "s"
-

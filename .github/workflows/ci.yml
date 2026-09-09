@@ -19,6 +19,7 @@ jobs:
           components: rustfmt
       - name: Check formatting
         run: cargo fmt --all -- --check
-      - name: Build release examples
-        run: cargo build --release --workspace
-
+      - name: Build minimal HAL example
+        run: cargo build --release -p ch582-blinky
+      - name: Build Embassy example
+        run: cargo build --release -p ch582-embassy-blinky
